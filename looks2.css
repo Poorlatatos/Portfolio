@@ -174,10 +174,10 @@
     font-weight: bolder;
 }
 .timeline-section {
-    width: 102vw; /* Full viewport width */
+    width: 102vw;
     max-width: none;
     position: relative;
-    margin: 80px 0 60px 0; /* Only vertical margin */
+    margin: 80px 0 60px 0;
     display: flex;
     justify-content: center;
     background: #e3f2e8;
@@ -186,6 +186,52 @@
     padding-bottom: 40px;
     transition: background 0.6s cubic-bezier(.4,0,.2,1);
     z-index: 0;
+    overflow: hidden;
+}
+
+.timeline-section::before {
+    content: "";
+    position: absolute;
+    left: 0; top: 0; right: 0; bottom: 0;
+    z-index: -1;
+    pointer-events: none;
+    opacity: 0.35;
+    /* 8 randomized ripples using radial gradients at random positions */
+    background:
+        radial-gradient(circle at 12% 22%, #b3e0f2 0px, #e3f2e8 80px, transparent 120px),
+        radial-gradient(circle at 78% 18%, #b3e0f2 0px, #e3f2e8 60px, transparent 100px),
+        radial-gradient(circle at 35% 75%, #b3e0f2 0px, #e3f2e8 50px, transparent 80px),
+        radial-gradient(circle at 60% 60%, #b3e0f2 0px, #e3f2e8 70px, transparent 110px),
+        radial-gradient(circle at 85% 80%, #b3e0f2 0px, #e3f2e8 65px, transparent 100px),
+        radial-gradient(circle at 25% 55%, #b3e0f2 0px, #e3f2e8 55px, transparent 90px),
+        radial-gradient(circle at 50% 40%, #b3e0f2 0px, #e3f2e8 60px, transparent 100px),
+        radial-gradient(circle at 10% 85%, #b3e0f2 0px, #e3f2e8 45px, transparent 70px);
+    animation: pondRipplesRandom 12s linear infinite;
+}
+
+@keyframes pondRipplesRandom {
+    0% {
+        background-position:
+            0px 0px,
+            0px 0px,
+            0px 0px,
+            0px 0px,
+            0px 0px,
+            0px 0px,
+            0px 0px,
+            0px 0px;
+    }
+    100% {
+        background-position:
+            40px 60px,
+            -60px 40px,
+            30px -50px,
+            -50px 30px,
+            60px -40px,
+            -40px 60px,
+            50px 20px,
+            -30px 50px;
+    }
 }
 @media (max-width: 800px) {
     .main-content {
