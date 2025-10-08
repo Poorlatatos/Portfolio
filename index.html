@@ -2,59 +2,39 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=0.8, maximum-scale=0.8, user-scalable=no">
-    <title>Homepage</title>
-    <link rel="stylesheet" href="looks.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Showreel</title>
+    <link rel="stylesheet" href="styles.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300..700&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Funnel+Display:wght@300..800&display=swap" rel="stylesheet">
-
+    <link href="https://fonts.googleapis.com/css2?family=Anonymous+Pro:ital,wght@0,400;0,700;1,400;1,700&family=Content:wght@400;700&family=Jaro:opsz@6..72&display=swap" rel="stylesheet">
 </head>
 <body>
-    <header class="headerBar">
-        <div class="logoTitle">
-            <img src="imgs/logo.png" alt="Logo" class="logo">
-            <h1>Jaasper Lee</h1>
-        </div>
-        <nav>
-            <ul>
-                <li><a href="index.html" class="active">Home</a></li>
-                <li><a href="aboutme.html">About Me</a></li>
-                <li><a href="project.html">Projects</a></li>
-                <li><a href="contact.html">Contact</a></li>
-            </ul>
-        </nav>
-    </header>
-    <rack class="imgRack">
-        <items class="imgItem">
-            <a href="Sci-fiSpaceship.html">
-                <img src="imgs/Sci-fiSpaceship.png" alt="Sci-fi Spaceship" class="imgItem">
-            </a>
-            <span class="imgCaption">Sci-Fi Spaceship</span>
-        </items>
-    </rack>
+    <div class="pagetitle">
+        <p>SHOWREEL</p>
+    </div>
+    <div class="showreel-container">
+        <a href="index.html" class="skip-button">SKIP</a>
+        <video controls class="showreel">
+        <source src="showreel.mp4" type="video/mp4">    
+        Your browser does not support the video tag.
+        </video>
+    </div>
+
     <footer class="footer">
-        <div class="footer-content">
-            <div class="footer-img left">
-                <img src="imgs/FooterLeft.png" alt="Left Footer Image">
-            </div>
-            <div class="footer-center">
-                <p>Email: <a href="mailto:jaasperlee@email.com">jaasperlee@email.com</a></p>
-                <div class="footer-socials">
-                    <a href="https://github.com/poorlatatos" target="_blank">
-                        <img src="imgs/github.png" alt="GitHub" class="social-icon">
-                    </a>
-                    <a href="https://www.linkedin.com/in/jaasper-lee-928286275/" target="_blank">
-                        <img src="imgs/linkedin.png" alt="LinkedIn" class="social-icon">
-                    </a>
-                </div>
-            </div>
-            <div class="footer-img right">
-                <img src="imgs/FooterRight.png" alt="Right Footer Image">
-            </div>
+        <div class="footer-pfp">
+
+        </div>
+        <div class ="text-bubble">
+            <div class="text-bubble-tail"></div>
+            <p class="text-bubble-text">Feel free to contact me through the listed avenues in my website!</p>
+        </div>
+        <div class="r-box-1">
+            <p class="r-box-1-text">jaasperlee@gmail.com</p>
+        </div>
+        <div class="r-box-2">
+
         </div>
     </footer>
-    <script src="scripts.js"></script>
 </body>
 </html>
