@@ -33,6 +33,66 @@ html, body {
     z-index: -1;
 }
 
+.pagetitle-r {
+    font-family: "Jaro", sans-serif;
+    font-optical-sizing: none;
+    font-size: 96px;
+    letter-spacing: -4px;
+    text-align: center;
+    align-self: center;
+    background-color: #E39D5E;
+    padding: 0;
+    border: 8px solid #000000;
+    margin: 60px auto;
+    margin-bottom: 25px;
+    display: flex;
+    width: 713px;
+    height: 172px;
+    position: relative;
+    z-index: 1;
+    left: 154px;
+    align-items: center;   /* Vertically center text */
+    justify-content: center; /* Horizontally center text */
+}
+
+.pagetitle-r::before {
+    content: "";
+    position: absolute;
+    width: 674px;
+    height: 138px;
+    background: #F4CE6D;
+    z-index: -1;
+}
+
+.pagetitle {
+    font-family: "Jaro", sans-serif;
+    font-optical-sizing: none;
+    font-size: 96px;
+    letter-spacing: -4px;
+    text-align: center;
+    align-self: center;
+    background-color: #E39D5E;
+    padding: 0;
+    border: 8px solid #000000;
+    margin: 60px auto;
+    display: flex;
+    width: 713px;
+    height: 172px;
+    position: relative;
+    z-index: 1;
+    align-items: center;   /* Vertically center text */
+    justify-content: center; /* Horizontally center text */
+}
+
+.pagetitle::before {
+    content: "";
+    position: absolute;
+    width: 674px;
+    height: 138px;
+    background: #F4CE6D;
+    z-index: -1;
+}
+
 .showreel-container {
     width: max-width;
     margin: 40px auto;
@@ -174,4 +234,232 @@ html, body {
     z-index: 4;
     align-items: center;   /* Vertically center text */
     justify-content: center; /* Horizontally center text */
+}
+
+
+/* Homepage specific styles */
+.homepage-background {
+    width: 1020px;
+    height: 1800px;
+    background-color: #E5E9AF;
+    border: 8px solid #000000;
+    margin: 0 auto;
+    position: relative;
+    align-self: center;
+    z-index: 0;
+}
+
+.pfp {
+    position: absolute;
+    top: -100px;      /* adjust as needed */
+    left: -100px;    /* adjust as needed */
+    width: 354px;
+    height: 354px;
+    background-color: #ffffff;
+    border: 9px solid #000000;
+    border-radius: 50%;
+    box-shadow: 8px 8px 4px rgba(0,0,0,0.2);
+    z-index: 2;     /* higher than homepage-background */
+}
+
+.intro-box{
+    position: absolute;
+    top: 32px;
+    left: 386px;
+    width: 598px;
+    height: 592px;
+    background-color: #F4CE6D;
+    border: 1px solid #000000;
+    box-shadow: 8px 8px 4px rgba(0,0,0,0.2);
+    z-index: 2;     /* higher than homepage-background */
+    display: flex;
+    align-items: center;   /* Vertically center text */
+    justify-content: center; /* Horizontally center text */
+}
+
+.about-me-section{
+    font-family: "Anonymous Pro", sans-serif;
+    font-optical-sizing: none;
+    font-size: 16px;
+    letter-spacing: -1px;
+    padding: 20px;
+    margin-top: 20px;
+    position: relative;
+    bottom: 140px;
+    z-index: 4;
+}
+
+.intro-box-title{
+    font-family: "Jaro", sans-serif;
+    font-optical-sizing: none;
+    text-decoration: underline;
+    font-size: 64px;
+    letter-spacing: -2px;
+    padding: 0;
+    margin: 0;
+    position: relative;
+    z-index: 4;
+    display: flex;
+    align-items: center;   /* Vertically center text */
+    justify-content: center; /* Horizontally center text */
+}
+
+.intro-box-text{
+    font-family: "Anonymous Pro", sans-serif;
+    font-optical-sizing: none;
+    font-size: 18px;
+    letter-spacing: -1px;
+    top: 16px;
+    width: 375px;
+    margin: 0;
+    position: relative;
+    z-index: 4;
+    text-align: justify;
+}
+
+.artwork-1 {
+    width: 147px;
+    height: 461px;
+}
+
+.l-box-row {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: 32px;
+    margin-top: 300px;
+    margin-left: 25px;
+}
+
+.l-box-1,
+.l-box-2,
+.l-box-3 {
+    position: static;
+    margin: 0;
+    top: auto;
+    left: auto;
+}
+
+.l-box-1 {
+    width: 333px;
+    height: 400px;
+    z-index: 1;
+    background-color: #E39D5E;
+    border: 1px solid #000000;
+    border-radius: 20px 20px 0px 0px;
+    box-shadow: 4px 8px 4px rgba(0,0,0,0.2);
+}
+
+.l-box-2 {
+    width: 333px;
+    height: 361px;
+    z-index: 1;
+    background-color: #E39D5E;
+    border: 1px solid #000000;
+    box-shadow: 4px 8px 4px rgba(0,0,0,0.2);
+}
+
+.l-box-3 {
+    width: 333px;
+    height: 400px;
+    z-index: 1;
+    background-color: #E39D5E;
+    border: 1px solid #000000;
+    border-radius: 0px 0px 20px 20px;
+    box-shadow: 4px 8px 4px rgba(0,0,0,0.2);
+}
+
+.nav-bar-bottom {
+    width: 270px;
+    height: 12px;
+    padding: 3px;
+    background-color: #CE5749;
+    margin: 0 auto;
+    border-radius: 85px;
+}
+
+.navigation-title {
+    font-family: "Jaro", sans-serif;
+    font-optical-sizing: none;
+    font-size: 40px;
+    letter-spacing: -2px;
+    text-align: center;
+    padding-top: 26px;
+    margin: 0;
+    position: relative;
+    display: flex;
+    align-items: center;   /* Vertically center text */
+    justify-content: center; /* Horizontally center text */
+    height: 50px;
+    border-radius: 20px 20px 0px 0px;
+}
+
+.nav-link {
+    display: block;
+    font-family: "Anonymous Pro", sans-serif;
+    padding: 12px 38px;
+    text-decoration: none;
+    color: #000000;
+}
+
+.blog-preview-section {
+    position: absolute;
+    top: 656px;
+    left: 386px;
+    width: 598px;
+    height: 361px;
+    background-color: #F4CE6D;
+    border: 1px solid #000000;
+    box-shadow: 8px 8px 4px rgba(0,0,0,0.2);
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding-bottom: 5px;
+}
+
+.blog-preview-title {
+    font-family: "Jaro", sans-serif;
+    font-optical-sizing: none;
+    text-decoration: underline;
+    font-size: 48px;
+    letter-spacing: -2px;
+    z-index: 4;
+}
+
+.blog-posts {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    width: 90%;
+    height: 250px;
+    padding-right: 18px;
+    overflow-y: auto;
+    scrollbar-color: #000000 #F4CE6D; /* thumb and track colors */
+    overflow-x: hidden;
+}
+
+.blog-post {
+    background-color: #F47A6C;
+    border: 1px solid #000000;
+    padding: 12px;
+    width: 500px;
+}
+
+.blog-post-date {
+    font-family: "Content", sans-serif;
+    font-optical-sizing: none;
+    font-size: 20px;
+    letter-spacing: -2px;
+    margin: 0 0 0 0;
+}
+
+.blog-post-excerpt {
+    font-family: "Anonymous Pro", sans-serif;
+    font-optical-sizing: none;
+    font-size: 16px;
+    letter-spacing: -1px;
+    margin: 8px 0 0 0;
 }
