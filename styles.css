@@ -236,7 +236,37 @@ html, body {
     justify-content: center; /* Horizontally center text */
 }
 
+.background-row {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start; /* Align tops */
+    justify-content: center; /* Center the row horizontally */
+    width: 100%;
+    margin-bottom: 0;
+}
 
+.background-box-l{
+    width: 414px;
+    height: 934px;
+    position: relative;
+    background-color: #E5E9AF;
+    border: 8px solid #000000;
+    margin-right: 11px;
+    border-top-left-radius: 80px;
+}
+
+.background-box-r{
+    width: 595px;
+    height: 934px;
+    position: relative;
+    background-color: #E5E9AF;
+    border: 8px solid #000000;
+    border-top-right-radius: 80px;
+}
+
+.background-box-r{
+    position: relative;
+}
 /* Homepage specific styles */
 .homepage-background {
     width: 1020px;
@@ -323,8 +353,6 @@ html, body {
 }
 
 .l-box-row {
-    display: flex;
-    flex-direction: column;
     justify-content: flex-start;
     gap: 32px;
     margin-top: 300px;
@@ -332,8 +360,7 @@ html, body {
 }
 
 .l-box-1,
-.l-box-2,
-.l-box-3 {
+.l-box-2 {
     position: static;
     margin: 0;
     top: auto;
@@ -342,8 +369,9 @@ html, body {
 
 .l-box-1 {
     width: 333px;
-    height: 400px;
+    height: 655px;
     z-index: 1;
+    margin-bottom: 28px;
     background-color: #E39D5E;
     border: 1px solid #000000;
     border-radius: 20px 20px 0px 0px;
@@ -351,15 +379,6 @@ html, body {
 }
 
 .l-box-2 {
-    width: 333px;
-    height: 361px;
-    z-index: 1;
-    background-color: #E39D5E;
-    border: 1px solid #000000;
-    box-shadow: 4px 8px 4px rgba(0,0,0,0.2);
-}
-
-.l-box-3 {
     width: 333px;
     height: 400px;
     z-index: 1;
@@ -394,6 +413,17 @@ html, body {
     border-radius: 20px 20px 0px 0px;
 }
 
+.daily-news-section {
+    width: 272px;
+    height: 135px;
+    background-color: #F4CE6D;
+    border: 1px solid #000000;
+    z-index: 2;
+    display: flex;
+    justify-self: center;
+    margin-top: 40px;
+}
+
 .nav-link {
     display: block;
     font-family: "Anonymous Pro", sans-serif;
@@ -416,7 +446,7 @@ html, body {
     flex-direction: column;
     align-items: center;
     justify-content: flex-start;
-    padding-bottom: 5px;
+    padding-bottom: 18px;
 }
 
 .blog-preview-title {
@@ -462,4 +492,109 @@ html, body {
     font-size: 16px;
     letter-spacing: -1px;
     margin: 8px 0 0 0;
+}
+
+/* Project page specific styles */
+.project-background {
+    width: 541px;
+    height: 700px;
+    background-color: #433933;
+    border: 8px solid #000000;
+    margin: 18px auto;
+    position: relative;
+    align-self: center;
+    justify-content: center;
+    z-index: 0;
+    border-top-right-radius: 60px;
+    padding-bottom: 40px;
+}
+
+.project-title {
+    font-family: "Jaro", sans-serif;
+    font-optical-sizing: none;
+    width: 344px;
+    height: 100px;
+    font-size: 64px;
+    letter-spacing: -2px;
+    text-align: center;
+    align-self: center;
+    padding: 0;
+    margin: 10px auto 10px auto;
+    display: flex;
+    position: relative;
+    z-index: 1;
+    align-items: center;   /* Vertically center text */
+    justify-content: center; /* Horizontally center text */
+}
+
+.VHS-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;      /* Fill parent width */
+    height: 600px;
+}
+
+#three-canvas {
+    width: 100%;
+    height: 500px;
+    display: block;
+    margin: 0 auto;
+    border: 8px solid #000000;
+    background-color: #000000;
+}
+
+.right-button{
+    position: absolute;
+    left: 450px;
+    color: #000000;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+    text-decoration: none;
+    font-family: "Anonymous Pro", sans-serif;
+    font-optical-sizing: none;
+    z-index: 2;
+    box-shadow: 4px 4px 12px rgba(0,0,0,0.2);
+}
+
+.left-button{
+    position: absolute;
+    right: 450px;
+    color: #000000;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+    text-decoration: none;
+    font-family: "Anonymous Pro", sans-serif;
+    font-optical-sizing: none;
+    z-index: 2;
+    box-shadow: 4px 4px 12px rgba(0,0,0,0.2);
+}
+
+.l-box-1-project {
+    width: 333px;
+    height: 665px;
+    background-color: #E39D5E;
+    border: 1px solid #000000;
+    border-radius: 20px 0px 0px 0px;
+    box-shadow: 4px 8px 4px rgba(0,0,0,0.2);
+    position: absolute;
+    top: 150px;
+    left: 40px;
+}
+
+.info-text{
+    width: 320px;
+    margin: 30px auto 20px auto;
+    font-family: "Anonymous Pro", sans-serif;
+    font-optical-sizing: none;
+    text-align: justify;
+    font-size: 18px;
+    letter-spacing: -1px;
+    padding: 20px;
+    position: relative;
+    z-index: 4;
 }

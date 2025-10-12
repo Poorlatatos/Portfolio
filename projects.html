@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projects</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Anonymous+Pro:ital,wght@0,400;0,700;1,400;1,700&family=Content:wght@400;700&family=Jaro:opsz@6..72&display=swap" rel="stylesheet">
+
+    <script type="importmap">
+        {
+            "imports": {
+                "three": "https://cdn.jsdelivr.net/npm/three@0.180.0/build/three.module.js",
+                "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.180.0/examples/jsm/"
+            }
+        }
+    </script>
+</head>
+<body>
+    <div class="pagetitle-r">
+        <p>PROJECTS</p>
+    </div>
+    <div class="background-row">
+        <div class="background-box-l">
+                <p class="info-text">Here is where I keep my projects!
+                <br><br>
+                Use the arrows to navigate through the tapes and select one to load it.
+                </p>
+                <div class="l-box-1-project">
+                <h2 class="navigation-title">PAGE NAVIGATION</h2>
+                <div class="nav-bar-bottom"></div>
+                <a href="index.html" class="nav-link">SHOWREEL</a>
+                <a href="homepage.html" class="nav-link">HOMEPAGE</a>
+                <a href="projects.html" class="nav-link">PROJECTS</a>
+                <a href="devdiaries.html" class="nav-link">DEV DIARIES</a>
+                <a href="musically.html" class="nav-link">MUSIC</a>
+                <a href="blog.html" class="nav-link">BLOG</a>
+                <div class="nav-bar-bottom"></div>
+
+                <h2 class="navigation-title" style="margin-top: 5px;">DAILY NEWS</h2>
+                <div class="nav-bar-bottom"></div>
+                <div class="daily-news-section">
+                    <p class="daily-news-text">No news for today. Check back later!</p>
+                </div>
+            </div>
+        </div>
+        <div class="background-box-r">
+            <div class="project-background">
+                <div class="project-title">
+                    <p>Select a tape</p>
+                </div>
+                <div class="VHS-container">
+                    <button class="right-button">
+                        <img src="right-arrow.png" alt="Right Arrow">
+                    </button>
+                    <button class="left-button">
+                        <img src="left-arrow.png" alt="Left Arrow">
+                    </button>
+                    <div id="three-canvas"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer class="footer">
+        <div class="footer-pfp">
+
+        </div>
+        <div class ="text-bubble">
+            <div class="text-bubble-tail"></div>
+            <p class="text-bubble-text">Feel free to contact me through the listed avenues in my website!</p>
+        </div>
+        <div class="r-box-1">
+            <p class="r-box-1-text">jaasperlee@gmail.com</p>
+        </div>
+        <div class="r-box-2">
+
+        </div>
+    </footer>
+    <script type="module" src="vhsloader.js"></script>
+</body>
+</html>
