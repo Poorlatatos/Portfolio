@@ -396,7 +396,7 @@ html, body {
     font-size: 64px;
     letter-spacing: -2px;
     padding: 0;
-    margin: 0;
+    margin: 65px 0 0 0;
     position: relative;
     z-index: 4;
     display: flex;
