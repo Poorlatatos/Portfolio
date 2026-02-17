@@ -1,5 +1,5 @@
 import * as THREE from 'three';
-import { models } from './3DModels/models.js';
+import { models } from '../3DModels/models.js';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 
 import { EffectComposer } from 'three/addons/postprocessing/EffectComposer.js';
