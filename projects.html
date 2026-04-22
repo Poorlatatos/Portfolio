@@ -3,67 +3,51 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Projects</title>
+    <title>Portfolio</title>
+    <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="styles.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Anonymous+Pro:ital,wght@0,400;0,700;1,400;1,700&family=Content:wght@400;700&family=Jaro:opsz@6..72&display=swap" rel="stylesheet">
-
-    <script type="importmap">
-        {
-            "imports": {
-                "three": "https://cdn.jsdelivr.net/npm/three@0.180.0/build/three.module.js",
-                "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.180.0/examples/jsm/"
-            }
-        }
-    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Average+Sans&family=TASA+Explorer:wght@400..800&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div class="pagetitle-r">
-        <p>PROJECTS</p>
-    </div>
-    <div class="background-row">
-        <div class="background-box-l">
-                <p class="info-text">Here is where I keep my projects!
-                <br><br>
-                Use the arrows to navigate through the tapes and select one to load it.
-                </p>
-                <div class="l-box-1-project">
-                <h2 class="navigation-title">PAGE NAVIGATION</h2>
-                <div class="nav-bar-bottom"></div>
-                <a href="index.html" class="nav-link">SHOWREEL</a>
-                <a href="homepage.html" class="nav-link">HOMEPAGE</a>
-                <a href="projects.html" class="nav-link">PROJECTS</a>
-                <a href="dev-diaries.html" class="nav-link">DEV DIARIES</a>
-                <a href="musically.html" class="nav-link">MUSIC</a>
-                <a href="blog.html" class="nav-link">BLOG</a>
-                <div class="nav-bar-bottom"></div>
+    <header>
+        <div class="title-name">
+            <p>Jaasper Lee</p>
+        </div>
+        <div class="break1"></div>
+        <list>
+            <a href="homepage.html" class="nav-link">Homepage</a>
+            <a href="projects.html" class="nav-link">Portfolio</a>
+            <a href="dev-diaries.html" class="nav-link">Dev Diaries</a>
+            <a href="blog.html" class="nav-link">Blog</a>
+        </list>
+    </header>
 
-                <h2 class="navigation-title" style="padding-top: 0px">DAILY NEWS</h2>
-                <div class="nav-bar-bottom"></div>
-                <div class="daily-news-section">
-                    <p class="daily-news-text">No news for today. Check back later!</p>
-                </div>
-            </div>
-        </div>
-        <div class="background-box-r">
-            <div class="project-background">
-                <div class="project-title">
-                    <p>Select a tape</p>
-                </div>
-                <div class="VHS-container">
-                    <button class="right-button">
-                        <img src="right-arrow.png" alt="Right Arrow">
-                    </button>
-                    <button class="left-button">
-                        <img src="left-arrow.png" alt="Left Arrow">
-                    </button>
-                    <div id="three-canvas"></div>
-                </div>
-            </div>
-        </div>
+    <div class="showreel-section fade-in">
+        <video autoplay muted loop class="showreel-video-wide">
+            <source src="imgs/background-video.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+        <div class="showreel-label">Showreel</div>
     </div>
-    <footer class="footer">
+    <div class="portfolio-roundabout fade-in">
+        <button class="arrow left">&#9664;</button>
+        <div class="portfolio-cards">
+            <a href="project1.html" class="portfolio-card left faded">
+                <img src="imgs/project1.png" alt="Project 1" class="portfolio-img">
+            </a>
+            <a href="project2.html" class="portfolio-card center">
+                <img src="imgs/project2.png" alt="Project 2" class="portfolio-img">
+            </a>
+            <a href="project3.html" class="portfolio-card right faded">
+                <img src="imgs/project3.png" alt="Project 3" class="portfolio-img">
+            </a>
+        </div>
+        <button class="arrow right">&#9654;</button>
+    </div>
+
+    <footer class="footer fade-in">
         <div class="footer-pfp">
 
         </div>
@@ -72,13 +56,14 @@
             <p class="text-bubble-text">Feel free to contact me through the listed avenues in my website!</p>
         </div>
         <div class="r-box-1">
-            <p class="r-box-1-text">jaasperlee@gmail.com</p>
+            <h4 class="r-box-1-title">Links</h4>
+            <a href="mailto:jaasperlee@gmail.com" class="r-box-1-text">jaasperlee@gmail.com</a>
+            <a href="https://www.linkedin.com/in/jaasper-lee-928286275/" class="r-box-1-text">LinkedIn</a>
         </div>
         <div class="r-box-2">
-            <p class="r-box-2-text">Check out my CV here!</p>
-            <a href="cv.pdf" class="r-box-2-link">CV</a>
+
         </div>
     </footer>
-    <script type="module" src="js-files/vhsloader.js"></script>
+    <script src="js-files/generalscripts.js"></script>
 </body>
 </html>

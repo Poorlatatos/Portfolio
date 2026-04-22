@@ -7,84 +7,43 @@
     <link rel="stylesheet" href="styles.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Anonymous+Pro:ital,wght@0,400;0,700;1,400;1,700&family=Content:wght@400;700&family=Jaro:opsz@6..72&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Average+Sans&family=TASA+Explorer:wght@400..800&display=swap" rel="stylesheet">
 </head>
-<div id="wave-container" class="wave-scroll" style="position:fixed; left:0; top:50vh; width:100vw; height:50vh; z-index:0; pointer-events:none; overflow:hidden;">
-<svg id="wave" width="100%" height="100%" viewBox="0 0 1920 300" preserveAspectRatio="none">
-    <path id="wave-path" fill="#6C8EF4"/>
-    <g id="wave-foam"></g>
-</svg>
 </div>
 <body>
-    <div class="pagetitle-r">
-        <p>HOMEPAGE</p>
-    </div>
-
-    <div class="homepage-background">
-        <div class="pfp"></div>
-        <div class="intro-box">
-            <div class="about-me-section">
-                <h1 class="intro-box-title">ABOUT ME</h1>
-                <p class="intro-box-text">Welcome to my portfolio website! Here, you'll find a curated selection of my work, showcasing my skills and creativity. 
-                    Feel free to explore the different sections and reach out if you'd like to collaborate or learn more about my projects.
-                    And don't forget to check out my showreel for a quick overview of my highlights!
-                    <br><br>
-                    Contacts are listed at the bottom right of the page.
-                    <br><br>
-                    Please do take your time to look around at all the projects and blog posts that I've shared here.
+    <header>
+        <div class="title-name">
+            <p>Jaasper Lee</p>
+        </div>
+        <div class="break1"></div>
+        <list>
+            <a href="homepage.html" class="nav-link">Homepage</a>
+            <a href="projects.html" class="nav-link">Portfolio</a>
+            <a href="dev-diaries.html" class="nav-link">Dev Diaries</a>
+            <a href="blog.html" class="nav-link">Blog</a>
+        </list>
+    </header>
+    <main>
+        <div class="top-section fade-in">
+            <video autoplay muted loop class="showreel-video">
+                <source src="imgs/logo.png" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+            <img src="imgs/background-image.png" alt="Banner Art" class="banner-art-wide">
+        </div>
+        <div class="middle-section fade-in">
+            <img src="imgs/logo.png" alt="Profile Picture" class="profile-pic">
+            <div class="welcome-text">
+                <h1>Hello!!!</h1>
+                <h2>こんにちは‼, Guten Tag!, My name is Jaasper!</h2>
+                <h2>I'm a software developer, game designer, and most of all I'm an enthusiast of all things tech!</h2>
+                <p> I have a passion for learning and creating, this website is a testament to that. Here, I share my projects, dev diaries, and blog posts about my journey in the world of technology. 
+                    Please do take the time to explore and feel free to reach out if you have any questions!
                 </p>
             </div>
-            <div class="artwork-1">
-                <img src="artwork1.jpg" alt="Artwork 1">
-            </div>
         </div>
-
-        <div class="blog-preview-section">
-            <h2 class="blog-preview-title">BLOG HEADLINES</h2>
-            <div class="blog-posts-container">
-                <div class="blog-posts">
-                    <div class="blog-post">
-                        <p class="blog-post-date">January 1, 2023</p>
-                        <p class="blog-post-excerpt">This is a brief excerpt from the first blog post. It gives a quick overview of the content.</p>
-                    </div>
-                    <div class="blog-post">
-                        <p class="blog-post-date">January 2, 2023</p>
-                        <p class="blog-post-excerpt">This is a brief excerpt from the second blog post. It gives a quick overview of the content.</p>
-                    </div>
-                    <div class="blog-post">
-                        <p class="blog-post-date">January 3, 2023</p>
-                        <p class="blog-post-excerpt">This is a brief excerpt from the third blog post. It gives a quick overview of the content.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="l-box-row">
-            <div class="l-box-1">
-                <h2 class="navigation-title">PAGE NAVIGATION</h2>
-                <div class="nav-bar-bottom"></div>
-                <a href="index.html" class="nav-link">SHOWREEL</a>
-                <a href="homepage.html" class="nav-link">HOMEPAGE</a>
-                <a href="projects.html" class="nav-link">PROJECTS</a>
-                <a href="dev-diaries.html" class="nav-link">DEV DIARIES</a>
-                <a href="musically.html" class="nav-link">MUSIC</a>
-                <a href="blog.html" class="nav-link">BLOG</a>
-                <div class="nav-bar-bottom"></div>
-
-                <h2 class="navigation-title" style="padding-top: 0px">DAILY NEWS</h2>
-                <div class="nav-bar-bottom"></div>
-                <div class="daily-news-section">
-                    <p class="daily-news-text">No news for today. Check back later!</p>
-                </div>
-            </div>
-            <div class="l-box-2">
-
-            </div>
-        </div>
-
-
-    </div>
-
-    <footer class="footer">
+    </main>
+    <footer class="footer fade-in">
         <div class="footer-pfp">
 
         </div>
@@ -93,11 +52,12 @@
             <p class="text-bubble-text">Feel free to contact me through the listed avenues in my website!</p>
         </div>
         <div class="r-box-1">
-            <p class="r-box-1-text">jaasperlee@gmail.com</p>
+            <h4 class="r-box-1-title">Links</h4>
+            <a href="mailto:jaasperlee@gmail.com" class="r-box-1-text">jaasperlee@gmail.com</a>
+            <a href="https://www.linkedin.com/in/jaasper-lee-928286275/" class="r-box-1-text">LinkedIn</a>
         </div>
         <div class="r-box-2">
-            <p class="r-box-2-text">Check out my CV here!</p>
-            <a href="cv.pdf" class="r-box-2-link">CV</a>
+
         </div>
     </footer>
     <script src="js-files/generalscripts.js"></script>
