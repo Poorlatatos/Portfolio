@@ -181,7 +181,6 @@ header {
     color: #3a3a2c;
     font-family: 'Average Sans', sans-serif;
     padding: 40px;
-    background: #f0e6d5;
     border-radius: 8px;
 }
 
@@ -263,7 +262,7 @@ header {
 }
 
 .portfolio-card.left {
-    transform: rotate(-8deg) translateX(-120px) scale(0.9);
+    transform: rotate(-8deg) translateX(-320px) scale(0.9);
     opacity: 0.4;
     z-index: 1;
 }
@@ -275,7 +274,7 @@ header {
 }
 
 .portfolio-card.right {
-    transform: rotate(8deg) translateX(120px) scale(0.9);
+    transform: rotate(8deg) translateX(320px) scale(0.9);
     opacity: 0.4;
     z-index: 1;
 }
