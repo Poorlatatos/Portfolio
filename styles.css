@@ -305,6 +305,24 @@ header {
     transform: translateY(0);
 }
 
+.project-background {
+    position: relative;
+    margin: 92px;
+    width: 90.6%;
+    height: 100%;
+    background-color: #dac79d;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.project-content {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 /* Pictures */
 .showreel-video,
 .banner-art-wide {
