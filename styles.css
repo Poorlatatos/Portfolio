@@ -271,12 +271,20 @@ header {
     transform: rotate(0deg) translateX(0) scale(1.1);
     opacity: 1;
     z-index: 2;
+    pointer-events: auto;
+    cursor: pointer;
 }
 
 .portfolio-card.right {
     transform: rotate(8deg) translateX(320px) scale(0.9);
     opacity: 0.4;
     z-index: 1;
+}
+
+.portfolio-card.left,
+.portfolio-card.right {
+    pointer-events: none;
+    cursor: default;
 }
 
 .arrow {
@@ -287,6 +295,46 @@ header {
     cursor: pointer;
     z-index: 3;
     margin: 0 20px;
+}
+
+.project-background {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 100vh;
+    margin: 109px;
+    padding: 0;
+}
+
+.project-content-column {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 800px;
+    margin-top: 40px;
+    background: none;
+}
+
+.project-text-block {
+    width: 90%;
+    max-width: 700px;
+    background: none;
+    text-align: left;
+}
+
+.project-intro-title {
+    font-size: 2rem;
+    font-weight: bold;
+    margin: 0 0 8px 0;
+    font-family: 'Average Sans', sans-serif;
+}
+
+.project-description-text {
+    font-size: 1rem;
+    text-align: justify;
+    font-family: 'Elms Sans', sans-serif;
+    margin: 0;
+    line-height: 1.5;
 }
 
 /* Miscellaneous */
@@ -305,23 +353,48 @@ header {
     transform: translateY(0);
 }
 
-.project-background {
-    position: relative;
-    margin: 92px;
-    width: 90.6%;
-    height: 100%;
-    background-color: #dac79d;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+body.dark-mode {
+  background-color: #181818;
+  color: #f0e6d5;
 }
 
-.project-content {
-    position: absolute;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+body.dark-mode header,
+body.dark-mode .footer {
+  background-color: #222;
 }
+
+body.dark-mode .nav-link {
+  color: #f0e6d5;
+}
+
+body.dark-mode .project-text-block,
+body.dark-mode .welcome-text {
+  background: none;
+  color: #f0e6d5;
+}
+
+/* Add more overrides as needed for your design */
+.mode-toggle {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 100;
+}
+.mode-toggle button {
+  margin: 0 5px;
+  padding: 6px 14px;
+  border-radius: 6px;
+  border: 1px solid #888;
+  background: #fff;
+  color: #222;
+  cursor: pointer;
+}
+body.dark-mode .mode-toggle button {
+  background: #333;
+  color: #f0e6d5;
+  border: 1px solid #555;
+}
+
 
 /* Pictures */
 .showreel-video,
@@ -380,7 +453,6 @@ header {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    border-radius: 16px;
     box-shadow: 0 4px 16px rgba(0,0,0,0.15);
     transition: transform 0.2s;
 }
@@ -389,4 +461,26 @@ header {
     transform: scale(1.03);
     box-shadow: 0 8px 24px rgba(0,0,0,0.25);
     cursor: pointer;
+}
+
+.project-logo-large {
+    width: 700px;
+    height: 400px;
+    background: #999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    object-fit: cover;
+    margin-bottom: 32px;
+}
+
+.project-infographic {
+    width: 700px;
+    height: 300px;
+    background: #999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    object-fit: cover;
+    margin: 32px;
 }
