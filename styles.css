@@ -337,6 +337,76 @@ header {
     line-height: 1.5;
 }
 
+.skills-cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 60px 60px; /* row gap, column gap */
+    margin-top: 40px;
+    max-width: 900px;
+    margin-left: auto;
+    margin-right: auto;
+    justify-items: center;
+}
+
+.skill-card {
+    width: 220px;
+    margin-bottom: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: none;
+    transition: transform 0.2s cubic-bezier(0.4, 0.2, 0.2, 1);
+}
+
+.skill-image {
+    width: 220px;
+    height: 200px;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    border-radius: 6px;
+    margin-bottom: 20px;
+}
+
+.skill-label {
+    background: #fff;
+    color: #222;
+    padding: 12px 36px;
+    border-radius: 20px;
+    font-size: 1.2rem;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    margin-top: -30px;
+    z-index: 1;
+    position: relative;
+}
+
+.showreel-section {
+    position: relative;
+    justify-self: center;
+    width: 700px;
+    height: 500px;
+    border-radius: 24px;
+    overflow: hidden;
+}
+
+.showreel-label-box {
+    position: absolute;
+    top: 12px;
+    left: 18px;
+    background: #f4e7d1;
+    color: #7a5c3e;
+    font-family: 'Average Sans', sans-serif;
+    font-size: 2.2rem;
+    padding: 8px 32px 8px 24px;
+    border-radius: 14px 14px 24px 0;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    z-index: 10;
+    border: 2px solid #e2d2b8;
+    letter-spacing: 2px;
+}
+
 /* Miscellaneous */
 .break1 {
     padding: 100px;
@@ -353,48 +423,14 @@ header {
     transform: translateY(0);
 }
 
-body.dark-mode {
-  background-color: #181818;
-  color: #f0e6d5;
+.skill-card {
+    transition: transform 0.2s cubic-bezier(0.4, 0.2, 0.2, 1);
 }
 
-body.dark-mode header,
-body.dark-mode .footer {
-  background-color: #222;
+.skill-card:hover {
+    transform: scale(1.04);
+    z-index: 2;
 }
-
-body.dark-mode .nav-link {
-  color: #f0e6d5;
-}
-
-body.dark-mode .project-text-block,
-body.dark-mode .welcome-text {
-  background: none;
-  color: #f0e6d5;
-}
-
-/* Add more overrides as needed for your design */
-.mode-toggle {
-  position: fixed;
-  top: 20px;
-  right: 20px;
-  z-index: 100;
-}
-.mode-toggle button {
-  margin: 0 5px;
-  padding: 6px 14px;
-  border-radius: 6px;
-  border: 1px solid #888;
-  background: #fff;
-  color: #222;
-  cursor: pointer;
-}
-body.dark-mode .mode-toggle button {
-  background: #333;
-  color: #f0e6d5;
-  border: 1px solid #555;
-}
-
 
 /* Pictures */
 .showreel-video,
@@ -425,14 +461,6 @@ body.dark-mode .mode-toggle button {
     z-index: 1; /* Behind the video */
 }
 
-.showreel-section {
-    position: relative;
-    width: 100vw;
-    height: 300px; /* Adjust as needed */
-    overflow: hidden;
-    background: #888
-    ;
-}
 .showreel-video-wide {
     width: 100%;
     height: 100%;
