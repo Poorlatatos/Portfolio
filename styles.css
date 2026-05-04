@@ -340,7 +340,7 @@ header {
 .skills-cards {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 60px 60px; /* row gap, column gap */
+    gap: 60px 60px;
     margin-top: 40px;
     max-width: 900px;
     margin-left: auto;
