@@ -501,7 +501,7 @@ header {
     object-fit: cover;
     margin-bottom: 32px;
 }
-
+                              
 .project-infographic {
     width: 700px;
     height: 300px;
@@ -512,3 +512,5 @@ header {
     object-fit: cover;
     margin: 32px;
 }
+
+/* Responsive Website Design*/
