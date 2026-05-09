@@ -341,7 +341,7 @@ header {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 60px 60px;
-    margin-top: 40px;
+    margin-top: 80px;
     max-width: 900px;
     margin-left: auto;
     margin-right: auto;
