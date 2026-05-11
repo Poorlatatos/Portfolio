@@ -349,7 +349,7 @@ header {
 }
 
 .skill-card {
-    width: 220px;
+    width: 200px;
     margin-bottom: 40px;
     display: flex;
     flex-direction: column;
@@ -359,8 +359,8 @@ header {
 }
 
 .skill-image {
-    width: 220px;
-    height: 200px;
+    width: auto;
+    height: auto;
     color: #fff;
     display: flex;
     align-items: center;
@@ -513,4 +513,76 @@ header {
     margin: 32px;
 }
 
-/* Responsive Website Design*/
+@media (min-width: 600px) and (max-width: 1024px) {
+    header, .footer {
+        flex-direction: column;
+        height: auto;
+        align-items: flex-start;
+        padding: 20px 0;
+    }
+    .footer-pfp {
+        margin-left: 0;
+        width: 180px;
+        height: 180px;
+    }
+    .text-bubble {
+        margin-left: 0;
+        width: 90vw;
+        min-width: 250px;
+        max-width: 500px;
+    }
+    .text-bubble-text {
+        width: 100%;
+        font-size: 16px;
+    }
+    .r-box-1, .r-box-2 {
+        margin-left: 0;
+        width: 90vw;
+        max-width: 300px;
+    }
+    .middle-section {
+        flex-direction: column;
+        gap: 20px;
+        padding: 20px 0;
+    }
+    .welcome-text {
+        padding: 20px;
+        max-width: 90vw;
+    }
+    .skills-cards {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 30px 30px;
+        max-width: 95vw;
+    }
+    .skill-card {
+        width: 140px;
+    }
+    .portfolio-roundabout {
+        flex-direction: column;
+        height: auto;
+        padding: 20px 0;
+    }
+    .portfolio-cards, .portfolio-card {
+        max-width: 90vw;
+        height: 350px;
+    }
+    .project-content-column {
+        width: 98vw;
+        margin-top: 10px;
+    }
+    .showreel-section {
+        width: 98vw;
+        height: 300px;
+    }
+}
+
+/* iPad Mini and smaller tablets */
+@media (max-width: 800px) {
+    .skills-cards {
+        grid-template-columns: 1fr;
+        gap: 20px 0;
+    }
+    .project-content-column {
+        width: 100vw;
+    }
+}
