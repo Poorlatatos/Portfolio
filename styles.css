@@ -359,8 +359,8 @@ header {
 }
 
 .skill-image {
-    width: auto;
-    height: auto;
+    width: 128px;
+    height: 128px;
     color: #fff;
     display: flex;
     align-items: center;
@@ -373,7 +373,7 @@ header {
 .skill-label {
     background: #fff;
     color: #222;
-    padding: 12px 36px;
+    padding: 12px 18px;
     border-radius: 20px;
     font-size: 1.2rem;
     box-shadow: 0 2px 8px rgba(0,0,0,0.08);
