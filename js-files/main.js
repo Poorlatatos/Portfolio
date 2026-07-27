@@ -3,15 +3,21 @@ import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import { OBJLoader } from 'three/addons/loaders/OBJLoader.js';
 import { MTLLoader } from 'three/addons/loaders/MTLLoader.js';
 import { MeshSurfaceSampler } from 'three/addons/math/MeshSurfaceSampler.js';
+import { startCameraFadeIn } from './camerafadein.js';
 
 function main() {
     const canvas = document.querySelector('#c');
     const renderer = new THREE.WebGLRenderer({ antialias: true, canvas });
-
+    renderer.shadowMap.enabled = true;
+    renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+    
     const dragState = {
         isDragging: false,
         lastX: 0,
         lastY: 0,
+        startX: 0,
+        startY: 0,
+        hasDragged: false,
         velocityX: 0,
         velocityY: 0,
     };
@@ -35,8 +41,11 @@ function main() {
     controls.autoRotate = true;
     controls.autoRotateSpeed = 0.5;
     controls.update();
+    
+    startCameraFadeIn(camera, controls);
 
     const scene = new THREE.Scene();	
+    scene.fog = new THREE.Fog(0x87ceeb, 40, 160);
     //scene.background = new THREE.Color(0x87CEEB);
 
     const textureLoader = new THREE.TextureLoader();
@@ -45,12 +54,19 @@ function main() {
     scene.background = texture;
     scene.environment = texture;
 
-    const ambientLight = new THREE.AmbientLight(0xffffff, 12);
+    const ambientLight = new THREE.AmbientLight(0xfffcb0, 1.2);
     scene.add(ambientLight);
 
-    const directionalLight = new THREE.DirectionalLight(0xffffff, 2);
-    directionalLight.position.set(50, 80, 60);   // light coming from the right/front/top
-    directionalLight.target.position.set(0, 0, 0);
+    const hemiLight = new THREE.HemisphereLight(0xfffcb0, 0xddffb0, 1.5);
+    scene.add(hemiLight);   
+
+    const directionalLight = new THREE.DirectionalLight(0xffffff, 1.2);
+    directionalLight.position.set(50, 80, 60);
+    directionalLight.castShadow = true;
+    directionalLight.shadow.mapSize.width = 4096;
+    directionalLight.shadow.mapSize.height = 4096;
+    directionalLight.shadow.bias = -0.0009;
+    directionalLight.shadow.normalBias = 0.02;
     scene.add(directionalLight);
     scene.add(directionalLight.target);
 
@@ -63,15 +79,49 @@ function main() {
     let treeRoot = null;
     let fruitTemplate = null;
 
+    const siteSections = [
+        {
+            title: 'Homepage',
+            href: 'index.html',
+            previewImage: 'imgs/previews/index.jpg',
+            description: 'Intro, skills, and personal summary.',
+        },
+        {
+            title: 'Portfolio',
+            href: 'projects.html',
+            previewImage: 'imgs/previews/projects.jpg',
+            description: 'Selected projects and showreel.',
+        },
+        {
+            title: 'Blog',
+            href: 'blog.html',
+            previewImage: 'imgs/previews/blog.jpg',
+            description: 'Posts and updates.',
+        },
+        {
+            title: 'Dev Diaries',
+            href: 'dev-diaries.html',
+            previewImage: 'imgs/previews/dev-diaries.jpg',
+            description: 'Development notes and progress logs.',
+        },
+    ];
+
+
     const mouse = new THREE.Vector2();
     let hoveredFruit = null;
     const bubble = document.querySelector('.fruit-bubble');
-    const bubbleText = document.querySelector('.fruit-bubble-content');
+    const bubbleImage = document.querySelector('.fruit-bubble-image');
+    const bubbleTitle = document.querySelector('.fruit-bubble-title');
+    const bubbleText = document.querySelector('.fruit-bubble-text'); 
+
 
     canvas.addEventListener('pointerdown', (event) => {
         dragState.isDragging = true;
         dragState.lastX = event.clientX;
         dragState.lastY = event.clientY;
+        dragState.startX = event.clientX;
+        dragState.startY = event.clientY;
+        dragState.hasDragged = false;
         lastInteractionTime = performance.now();
     });
 
@@ -86,18 +136,28 @@ function main() {
         dragState.velocityX = deltaX * 0.002;
         dragState.velocityY = deltaY * 0.002;
 
+        if (Math.abs(event.clientX - dragState.startX) > 5 || Math.abs(event.clientY - dragState.startY) > 5) {
+            dragState.hasDragged = true;
+        }
+
         dragState.lastX = event.clientX;
         dragState.lastY = event.clientY;
         lastInteractionTime = performance.now();
     });
 
-    canvas.addEventListener('pointerup', () => {
+    canvas.addEventListener('pointerup', (event) => {
+        if (!dragState.hasDragged) {
+            openFruitLink(event);
+        }
+
         dragState.isDragging = false;
+        dragState.hasDragged = false;
         lastInteractionTime = performance.now();
     });
 
     canvas.addEventListener('pointerleave', () => {
         dragState.isDragging = false;
+        dragState.hasDragged = false;
     });
 
     function cloneFruitInstance(template) {
@@ -110,30 +170,49 @@ function main() {
         return clone;
     }
 
-    function placeFruitsOnTree(treeObject, fruitObject, count = 5) {
-        if (!treeObject || !fruitObject) {
+    function getFruitFromEvent(event) {
+        const rect = canvas.getBoundingClientRect();
+        mouse.x = ((event.clientX - rect.left) / rect.width) * 2 - 1;
+        mouse.y = -((event.clientY - rect.top) / rect.height) * 2 + 1;
+
+        raycaster.setFromCamera(mouse, camera);
+        const hits = raycaster.intersectObjects(treeRoot ? treeRoot.children : [], true);
+        return hits.find((hit) => hit.object.userData.isFruit) ?? null;
+    }
+
+    function openFruitLink(event) {
+        const fruitHit = getFruitFromEvent(event);
+
+        if (!fruitHit) {
             return;
         }
+
+        window.location.href = fruitHit.object.userData.href;
+    }
+
+    function placeFruitsOnTree(treeObject, fruitObject, count = 5) {
+        if (!treeObject || !fruitObject) return;
 
         const treeMeshes = [];
         treeObject.traverse((child) => {
-            if (child.isMesh) {
-                treeMeshes.push(child);
-            }
+            if (child.isMesh) treeMeshes.push(child);
         });
 
-        if (treeMeshes.length === 0) {
-            return;
-        }
+        if (treeMeshes.length === 0) return;
 
         const sampler = new MeshSurfaceSampler(treeMeshes[0]).build();
         const tempPosition = new THREE.Vector3();
         const tempNormal = new THREE.Vector3();
         const up = new THREE.Vector3(0, 1, 0);
-
+        
         for (let i = 0; i < count; i++) {
             const fruit = cloneFruitInstance(fruitObject);
+            const section = siteSections[i % siteSections.length];
+
             fruit.userData.isFruit = true;
+            fruit.userData.href = section.href;
+            fruit.userData.section = section;
+
             sampler.sample(tempPosition, tempNormal);
 
             fruit.position.copy(tempPosition);
@@ -158,14 +237,18 @@ function main() {
 
         raycaster.setFromCamera(mouse, camera);
         const hits = raycaster.intersectObjects(treeRoot ? treeRoot.children : [], true);
-
-        const fruitHit = hits.find(hit => hit.object.userData.isFruit);
+        const fruitHit = hits.find((hit) => hit.object.userData.isFruit);
 
         if (fruitHit) {
+            const section = fruitHit.object.userData.section;
+
             if (hoveredFruit !== fruitHit.object) {
                 hoveredFruit = fruitHit.object;
-                bubble.style.display = "block";
-                bubbleText.textContent = "This is one of the apples!";
+                bubble.classList.add('is-visible');
+                bubbleTitle.textContent = section.title;
+                bubbleText.textContent = section.description;
+                bubbleImage.src = section.previewImage;
+                bubbleImage.alt = section.title;
             }
 
             const screenPos = fruitHit.object.position.clone().project(camera);
@@ -176,14 +259,14 @@ function main() {
             bubble.style.top = `${y}px`;
         } else {
             hoveredFruit = null;
-            bubble.style.display = "none";
+            bubble.classList.remove('is-visible');
         }
     }
 
-    canvas.addEventListener("pointermove", onPointerMove);
-    canvas.addEventListener("pointerleave", () => {
+    canvas.addEventListener('pointermove', onPointerMove);
+    canvas.addEventListener('pointerleave', () => {
+        bubble.classList.remove('is-visible');
         hoveredFruit = null;
-        bubble.style.display = "none";
     });
     function resizeRendererToDisplaySize(renderer) {
         const canvas = renderer.domElement;
@@ -294,6 +377,11 @@ function main() {
             const objLoader = new OBJLoader();
             objLoader.setMaterials(mtl);
             objLoader.load('obj-files/AppleGarden.obj', (root) => {
+                root.traverse((child) => {
+                    if (child.isMesh) {
+                        child.castShadow = true;
+                    }
+                });
                 treeRoot = root;
                 scene.add(root);
             });
@@ -311,6 +399,11 @@ function main() {
             const objLoader = new OBJLoader();
             objLoader.setMaterials(mtl);
             objLoader.load('obj-files/AppleGardenLeaves.obj', (root) => {
+                root.traverse((child) => {
+                    if (child.isMesh) {
+                        child.castShadow = true;
+                    }
+                });
                 treeRoot = root;
                 scene.add(root);
 
@@ -332,6 +425,11 @@ function main() {
             const objLoader = new OBJLoader();
             objLoader.setMaterials(mtl);
             objLoader.load('obj-files/AppleGardenFloor.obj', (root) => {
+                root.traverse((child) => {
+                    if (child.isMesh) {
+                        child.receiveShadow = true;
+                    }
+                });
                 floorRoot = root;
                 scene.add(root);
 

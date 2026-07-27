@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="redocss.css">
+    <script type="importmap">
+    {
+    "imports": {
+        "three": "https://cdn.jsdelivr.net/npm/three@0.184.0/build/three.module.js",
+		"three/addons/": "https://threejs.org/examples/jsm/"
+	    }
+    }
+    </script>
+</head>
+<body>
+    <canvas id="c"></canvas>
+    <div class="fruit-bubble">
+        <div class="fruit-bubble-content">
+            <img class="fruit-bubble-image" alt="">
+            <div class="fruit-bubble-text-wrap">
+                <h3 class="fruit-bubble-title"></h3>
+                <p class="fruit-bubble-text"></p>
+            </div>
+        </div>
+    </div>
+    <script type="module" src="js-files/main.js"></script>
+    <script type="module" src="js-files/camerafadein.js"></script>
+</body>
+</html>
