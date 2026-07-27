@@ -190,7 +190,7 @@ function main() {
         window.location.href = fruitHit.object.userData.href;
     }
 
-    function placeFruitsOnTree(treeObject, fruitObject, count = 5) {
+    function placeFruitsOnTree(treeObject, fruitObject) {
         if (!treeObject || !fruitObject) return;
 
         const treeMeshes = [];
@@ -204,10 +204,10 @@ function main() {
         const tempPosition = new THREE.Vector3();
         const tempNormal = new THREE.Vector3();
         const up = new THREE.Vector3(0, 1, 0);
-        
-        for (let i = 0; i < count; i++) {
+
+        for (let i = 0; i < siteSections.length; i++) {
             const fruit = cloneFruitInstance(fruitObject);
-            const section = siteSections[i % siteSections.length];
+            const section = siteSections[i];
 
             fruit.userData.isFruit = true;
             fruit.userData.href = section.href;
@@ -414,6 +414,78 @@ function main() {
         });
     }
 
+    let npcFloorSampler = null;
+    const npcFloorPoint = new THREE.Vector3();
+    const npcFloorNormal = new THREE.Vector3();
+    const npcHalfHeight = 1;
+    const npcEpsilon = 0.05;
+    const npcDownRay = new THREE.Raycaster();
+    const npcDownDirection = new THREE.Vector3(0, -1, 0);
+    const npcGroundHit = new THREE.Vector3();
+    const npcGroundNormal = new THREE.Vector3();
+
+    const npc = new THREE.Mesh(
+        new THREE.BoxGeometry(2, 2, 2),
+        new THREE.MeshStandardMaterial({ color: 0x44aa88 })
+    );
+    scene.add(npc);
+
+    const npcState = {
+        target: new THREE.Vector3(),
+        speed: 0.03,
+        waitTime: 0,
+    };
+
+    function setupNpcFloorSampler(floorObject) {
+        if (!floorObject) return;
+
+        const floorMeshes = [];
+        floorObject.traverse((child) => {
+            if (child.isMesh) {
+                floorMeshes.push(child);
+            }
+        });
+
+        if (floorMeshes.length === 0) return;
+
+        npcFloorSampler = new MeshSurfaceSampler(floorMeshes[0]).build();
+    }
+
+    function pickNewNpcTarget() {
+        if (!npcFloorSampler) return;
+
+        do {
+            npcFloorSampler.sample(npcFloorPoint, npcFloorNormal);
+        } while (npcFloorNormal.y < 0.5);
+
+        npcState.target.copy(npcFloorPoint).addScaledVector(
+            npcFloorNormal,
+            npcHalfHeight + npcEpsilon
+        );
+
+        npcState.waitTime = THREE.MathUtils.randFloat(0.5, 2.0);
+    }
+
+    function getNpcGroundY(x, z) {
+        npcDownRay.set(new THREE.Vector3(x, 100, z), npcDownDirection);
+
+        const floorMeshes = [];
+        floorRoot.traverse((child) => {
+            if (child.isMesh) floorMeshes.push(child);
+        });
+
+        const hits = npcDownRay.intersectObjects(floorMeshes, true);
+        if (hits.length === 0) return null;
+
+        const hit = hits[0];
+        if (hit.face) {
+            const normal = hit.face.normal.clone().transformDirection(hit.object.matrixWorld);
+            if (normal.y < 0.5) return null;
+        }
+
+        return hit.point.y + npcHalfHeight + npcEpsilon;
+    }
+
     {
         const mtlLoader = new MTLLoader();
         mtlLoader.load('obj-files/AppleGardenFloor.mtl', (mtl) => {
@@ -430,15 +502,28 @@ function main() {
                         child.receiveShadow = true;
                     }
                 });
+
                 floorRoot = root;
                 scene.add(root);
 
                 if (grassTemplate) {
                     placeGrassOnFloor(floorRoot, grassTemplate);
                 }
+
+                setupNpcFloorSampler(floorRoot);
+
+                do {
+                    npcFloorSampler.sample(npcFloorPoint, npcFloorNormal);
+                } while (npcFloorNormal.y < 0.5);
+
+                npc.position.copy(npcFloorPoint).addScaledVector(
+                    npcFloorNormal,
+                    npcHalfHeight + npcEpsilon
+                );
+
+                pickNewNpcTarget();
             });
         });
-        
     }
 
     {
@@ -466,6 +551,31 @@ function main() {
         }
 
         controls.update();
+        const delta = 1 / 60;
+
+        if (npcState.waitTime > 0) {
+            npcState.waitTime -= delta;
+        } else {
+            const direction = new THREE.Vector3().subVectors(npcState.target, npc.position);
+            const distance = direction.length();
+
+            if (distance < 0.2) {
+                pickNewNpcTarget();
+            } else {
+                direction.normalize();
+                const nextX = npc.position.x + direction.x * npcState.speed;
+                const nextZ = npc.position.z + direction.z * npcState.speed;
+                const groundY = getNpcGroundY(nextX, nextZ);
+
+                if (groundY !== null) {
+                    npc.position.x = nextX;
+                    npc.position.z = nextZ;
+                    npc.position.y = groundY;
+                }
+                
+                npc.lookAt(npcState.target);
+            }
+        }
 
         if (!dragState.isDragging) {
             dragState.velocityX *= 0.95;
@@ -482,6 +592,7 @@ function main() {
     }
 
     requestAnimationFrame(render);
+    pickNewNpcTarget();
 }
 
 main();

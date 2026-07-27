@@ -63,6 +63,8 @@
         startScreen.addEventListener('click', async () => {
             startScreen.style.display = 'none';
             introVideo.style.display = 'block';
+            
+            introVideo.volume = 0.6;
 
             try {
                 await introVideo.play();
