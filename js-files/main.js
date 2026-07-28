@@ -81,9 +81,9 @@ function main() {
 
     const siteSections = [
         {
-            title: 'Homepage',
-            href: 'index.html',
-            previewImage: 'imgs/previews/index.jpg',
+            title: 'About Me',
+            href: 'homepage.html',
+            previewImage: 'imgs/previews/homepage.jpg',
             description: 'Intro, skills, and personal summary.',
         },
         {
@@ -91,18 +91,6 @@ function main() {
             href: 'projects.html',
             previewImage: 'imgs/previews/projects.jpg',
             description: 'Selected projects and showreel.',
-        },
-        {
-            title: 'Blog',
-            href: 'blog.html',
-            previewImage: 'imgs/previews/blog.jpg',
-            description: 'Posts and updates.',
-        },
-        {
-            title: 'Dev Diaries',
-            href: 'dev-diaries.html',
-            previewImage: 'imgs/previews/dev-diaries.jpg',
-            description: 'Development notes and progress logs.',
         },
     ];
 
@@ -417,23 +405,55 @@ function main() {
     let npcFloorSampler = null;
     const npcFloorPoint = new THREE.Vector3();
     const npcFloorNormal = new THREE.Vector3();
-    const npcHalfHeight = 1;
-    const npcEpsilon = 0.05;
+    const npcHalfHeight = 0.5;
+    const npcEpsilon = 0.02;
     const npcDownRay = new THREE.Raycaster();
     const npcDownDirection = new THREE.Vector3(0, -1, 0);
     const npcGroundHit = new THREE.Vector3();
     const npcGroundNormal = new THREE.Vector3();
 
-    const npc = new THREE.Mesh(
-        new THREE.BoxGeometry(2, 2, 2),
-        new THREE.MeshStandardMaterial({ color: 0x44aa88 })
-    );
+    const npc = new THREE.Group();
     scene.add(npc);
+
+    {
+        const mtlLoader = new MTLLoader();
+        mtlLoader.load('obj-files/Rabbit.mtl', (mtl) => {
+            mtl.preload();
+
+            for (const material of Object.values(mtl.materials)) {
+                material.side = THREE.DoubleSide;
+            }
+
+            const objLoader = new OBJLoader();
+            objLoader.setMaterials(mtl);
+            objLoader.load('obj-files/Rabbit.obj', (root) => {
+                root.traverse((child) => {
+                    if (child.isMesh) {
+                        child.castShadow = true;
+                        child.receiveShadow = true;
+                    }
+                });
+
+                root.scale.setScalar(1.5);
+                root.rotation.y = Math.PI / 2;
+
+                const box = new THREE.Box3().setFromObject(root);
+                const center = box.getCenter(new THREE.Vector3());
+                root.position.sub(center);
+
+                const baseBox = new THREE.Box3().setFromObject(root);
+                root.position.y -= baseBox.min.y;
+
+                npc.add(root);
+            });
+        });
+    }
 
     const npcState = {
         target: new THREE.Vector3(),
         speed: 0.03,
         waitTime: 0,
+        walkCycle: 0,
     };
 
     function setupNpcFloorSampler(floorObject) {
@@ -463,6 +483,7 @@ function main() {
             npcHalfHeight + npcEpsilon
         );
 
+        npcState.walkCycle = 0;
         npcState.waitTime = THREE.MathUtils.randFloat(0.5, 2.0);
     }
 
@@ -570,7 +591,10 @@ function main() {
                 if (groundY !== null) {
                     npc.position.x = nextX;
                     npc.position.z = nextZ;
-                    npc.position.y = groundY;
+                    npcState.walkCycle += delta * 10;
+                    const hopHeight = 0.35;
+                    const hopOffset = Math.sin(npcState.walkCycle) * hopHeight;
+                    npc.position.y = groundY + hopOffset;
                 }
                 
                 npc.lookAt(npcState.target);
