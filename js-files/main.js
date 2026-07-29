@@ -77,6 +77,7 @@ function main() {
     let grassTemplate = null;
     let grassPlaced = false;
     let treeRoot = null;
+    let fruitTreeRoot = null;
     let fruitTemplate = null;
 
     const fruitIdleDelay = 2000;      // wait this long before pulsing
@@ -168,7 +169,7 @@ function main() {
         mouse.y = -((event.clientY - rect.top) / rect.height) * 2 + 1;
 
         raycaster.setFromCamera(mouse, camera);
-        const hits = raycaster.intersectObjects(treeRoot ? treeRoot.children : [], true);
+        const hits = raycaster.intersectObjects(fruitTreeRoot ? fruitTreeRoot.children : [], true);
         return hits.find((hit) => hit.object.userData.isFruit) ?? null;
     }
 
@@ -233,7 +234,7 @@ function main() {
         mouse.y = -((event.clientY - rect.top) / rect.height) * 2 + 1;
 
         raycaster.setFromCamera(mouse, camera);
-        const hits = raycaster.intersectObjects(treeRoot ? treeRoot.children : [], true);
+        const hits = raycaster.intersectObjects(fruitTreeRoot ? fruitTreeRoot.children : [], true);
         const fruitHit = hits.find((hit) => hit.object.userData.isFruit);
 
         if (!fruitHit) {
@@ -287,7 +288,7 @@ function main() {
     }
 
     function updateFruitIdleAnimation(now) {
-        if (!treeRoot) return;
+        if (!fruitTreeRoot) return;
 
         treeRoot.traverse((child) => {
             if (!child.userData?.isFruit) return;
@@ -445,11 +446,11 @@ function main() {
                         child.castShadow = true;
                     }
                 });
-                treeRoot = root;
+                fruitTreeRoot = root;
                 scene.add(root);
 
                 if (fruitTemplate) {
-                    placeFruitsOnTree(treeRoot, fruitTemplate);
+                    placeFruitsOnTree(fruitTreeRoot, fruitTemplate);
                 }
             });
         });
