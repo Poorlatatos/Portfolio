@@ -290,7 +290,7 @@ function main() {
     function updateFruitIdleAnimation(now) {
         if (!fruitTreeRoot) return;
 
-        treeRoot.traverse((child) => {
+        fruitTreeRoot.traverse((child) => {
             if (!child.userData?.isFruit) return;
 
             if (!child.userData.baseScale) {
@@ -323,6 +323,7 @@ function main() {
             child.scale.copy(baseScale).multiplyScalar(pulse);
         });
     }
+
     function makeGrassMaterial(texture) {
         texture.wrapS = THREE.RepeatWrapping;
         texture.wrapT = THREE.RepeatWrapping;
@@ -446,6 +447,7 @@ function main() {
                         child.castShadow = true;
                     }
                 });
+
                 fruitTreeRoot = root;
                 scene.add(root);
 
