@@ -403,6 +403,7 @@ function main() {
     }
 
     let npcFloorSampler = null;
+    let floorBounds = null;
     const npcFloorPoint = new THREE.Vector3();
     const npcFloorNormal = new THREE.Vector3();
     const npcHalfHeight = 0.5;
@@ -507,6 +508,21 @@ function main() {
         return hit.point.y + npcHalfHeight + npcEpsilon;
     }
 
+    function updateFloorBounds() {
+        if (!floorRoot) return;
+        floorBounds = new THREE.Box3().setFromObject(floorRoot);
+    }
+
+    function isNpcNearFloorEdge(x, z) {
+        if (!floorBounds) return false;
+
+        const margin = 2.5;
+        return x < floorBounds.min.x + margin
+            || x > floorBounds.max.x - margin
+            || z < floorBounds.min.z + margin
+            || z > floorBounds.max.z - margin;
+    }
+
     {
         const mtlLoader = new MTLLoader();
         mtlLoader.load('obj-files/AppleGardenFloor.mtl', (mtl) => {
@@ -526,6 +542,7 @@ function main() {
 
                 floorRoot = root;
                 scene.add(root);
+                updateFloorBounds();
 
                 if (grassTemplate) {
                     placeGrassOnFloor(floorRoot, grassTemplate);
@@ -546,7 +563,7 @@ function main() {
             });
         });
     }
-
+    
     {
         const textureLoader = new THREE.TextureLoader();
         const grassTexture = textureLoader.load('obj-files/Grass.png');
@@ -586,15 +603,20 @@ function main() {
                 direction.normalize();
                 const nextX = npc.position.x + direction.x * npcState.speed;
                 const nextZ = npc.position.z + direction.z * npcState.speed;
-                const groundY = getNpcGroundY(nextX, nextZ);
+                if (isNpcNearFloorEdge(nextX, nextZ)) {
+                    pickNewNpcTarget();
+                } else {
+                    const groundY = getNpcGroundY(nextX, nextZ);
 
-                if (groundY !== null) {
-                    npc.position.x = nextX;
-                    npc.position.z = nextZ;
-                    npcState.walkCycle += delta * 10;
-                    const hopHeight = 0.35;
-                    const hopOffset = Math.sin(npcState.walkCycle) * hopHeight;
-                    npc.position.y = groundY + hopOffset;
+                    if (groundY !== null) {
+                        npc.position.x = nextX;
+                        npc.position.z = nextZ;
+
+                        npcState.walkCycle += delta * 10;
+                        const hopHeight = 0.35;
+                        const hopOffset = Math.sin(npcState.walkCycle) * hopHeight;
+                        npc.position.y = groundY + hopOffset;
+                    }
                 }
                 
                 npc.lookAt(npcState.target);
