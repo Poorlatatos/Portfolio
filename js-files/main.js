@@ -83,13 +83,13 @@ function main() {
         {
             title: 'About Me',
             href: 'homepage.html',
-            previewImage: 'imgs/previews/homepage.jpg',
+            previewImage: './imgs/thumbnails/homepage-thumbnail.png',
             description: 'Intro, skills, and personal summary.',
         },
         {
             title: 'Portfolio',
             href: 'projects.html',
-            previewImage: 'imgs/previews/projects.jpg',
+            previewImage: './imgs/thumbnails/project-thumbnail.png',
             description: 'Selected projects and showreel.',
         },
     ];
