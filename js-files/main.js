@@ -79,6 +79,10 @@ function main() {
     let treeRoot = null;
     let fruitTemplate = null;
 
+    const fruitIdleDelay = 2000;      // wait this long before pulsing
+    const fruitPulseDuration = 1000;   // how long the pulse lasts
+    const fruitPulseAmount = 0.5;    // how much it expands
+
     const siteSections = [
         {
             title: 'About Me',
@@ -175,6 +179,7 @@ function main() {
             return;
         }
 
+        markFruitInteracted(fruitHit.object);
         window.location.href = fruitHit.object.userData.href;
     }
 
@@ -209,6 +214,10 @@ function main() {
             fruit.rotation.y = Math.random() * Math.PI * 2;
             fruit.scale.setScalar(0.25 + Math.random() * 0.15);
 
+            fruit.userData.baseScale = fruit.scale.clone();
+            fruit.userData.lastInteractionTime = performance.now();
+            fruit.userData.idlePulseStart = null;
+
             treeObject.add(fruit);
         }
     }
@@ -227,28 +236,31 @@ function main() {
         const hits = raycaster.intersectObjects(treeRoot ? treeRoot.children : [], true);
         const fruitHit = hits.find((hit) => hit.object.userData.isFruit);
 
-        if (fruitHit) {
-            const section = fruitHit.object.userData.section;
-
-            if (hoveredFruit !== fruitHit.object) {
-                hoveredFruit = fruitHit.object;
-                bubble.classList.add('is-visible');
-                bubbleTitle.textContent = section.title;
-                bubbleText.textContent = section.description;
-                bubbleImage.src = section.previewImage;
-                bubbleImage.alt = section.title;
-            }
-
-            const screenPos = fruitHit.object.position.clone().project(camera);
-            const x = (screenPos.x * 0.5 + 0.5) * window.innerWidth;
-            const y = (-screenPos.y * 0.5 + 0.5) * window.innerHeight;
-
-            bubble.style.left = `${x}px`;
-            bubble.style.top = `${y}px`;
-        } else {
+        if (!fruitHit) {
             hoveredFruit = null;
             bubble.classList.remove('is-visible');
+            return;
         }
+
+        markFruitInteracted(fruitHit.object);
+
+        const section = fruitHit.object.userData.section;
+
+        if (hoveredFruit !== fruitHit.object) {
+            hoveredFruit = fruitHit.object;
+            bubble.classList.add('is-visible');
+            bubbleTitle.textContent = section.title;
+            bubbleText.textContent = section.description;
+            bubbleImage.src = section.previewImage;
+            bubbleImage.alt = section.title;
+        }
+
+        const screenPos = fruitHit.object.position.clone().project(camera);
+        const x = (screenPos.x * 0.5 + 0.5) * window.innerWidth;
+        const y = (-screenPos.y * 0.5 + 0.5) * window.innerHeight;
+
+        bubble.style.left = `${x}px`;
+        bubble.style.top = `${y}px`;
     }
 
     canvas.addEventListener('pointermove', onPointerMove);
@@ -269,6 +281,47 @@ function main() {
         return needResize;
     }
 
+        function markFruitInteracted(fruitObject, now = performance.now()) {
+        fruitObject.userData.lastInteractionTime = now;
+        fruitObject.userData.idlePulseStart = null;
+    }
+
+    function updateFruitIdleAnimation(now) {
+        if (!treeRoot) return;
+
+        treeRoot.traverse((child) => {
+            if (!child.userData?.isFruit) return;
+
+            if (!child.userData.baseScale) {
+                child.userData.baseScale = child.scale.clone();
+            }
+
+            const baseScale = child.userData.baseScale;
+            const lastInteractionTime = child.userData.lastInteractionTime ?? now;
+            const idleTime = now - lastInteractionTime;
+
+            if (idleTime < fruitIdleDelay) {
+                child.scale.copy(baseScale);
+                child.userData.idlePulseStart = null;
+                return;
+            }
+
+            if (child.userData.idlePulseStart == null) {
+                child.userData.idlePulseStart = now;
+            }
+
+            const pulseTime = now - child.userData.idlePulseStart;
+
+            if (pulseTime > fruitPulseDuration) {
+                child.scale.copy(baseScale);
+                return;
+            }
+
+            const t = pulseTime / fruitPulseDuration;
+            const pulse = 1 + Math.sin(t * Math.PI) * fruitPulseAmount;
+            child.scale.copy(baseScale).multiplyScalar(pulse);
+        });
+    }
     function makeGrassMaterial(texture) {
         texture.wrapS = THREE.RepeatWrapping;
         texture.wrapT = THREE.RepeatWrapping;
@@ -590,6 +643,10 @@ function main() {
 
         controls.update();
         const delta = 1 / 60;
+
+        const now = performance.now();
+        updateFruitIdleAnimation(now);
+        controls.autoRotate = now - lastInteractionTime > idleDelay;
 
         if (npcState.waitTime > 0) {
             npcState.waitTime -= delta;
